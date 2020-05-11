@@ -1,0 +1,34 @@
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <table align="center">
+            <tr>
+                <td>
+                    <label for="email">Email</label>
+                </td>
+                <td>
+                    <input type="email" [formControl]="loginForm.controls['email']">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password</label>
+                </td>
+                <td>
+                    <input type="password" [formControl]="loginForm.controls['password']">
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/register">Register</a>
+
+                </td>
+                <td>
+                    <button type="submit" *ngIf="loginForm.valid">Login</button>
+
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>

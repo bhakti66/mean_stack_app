@@ -1,0 +1,19 @@
+
+<mat-grid-list cols="1" rowHeight="2:1">
+    
+    <div >
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            <tr *ngFor="let currentUser of allUsers | paginate: { itemsPerPage: count, currentPage: p }">
+                <td>{{currentUser.username}}</td>
+                <td>{{currentUser.email}}</td>
+            </tr>
+        </table>
+        <div class="text-right">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</mat-grid-list>
