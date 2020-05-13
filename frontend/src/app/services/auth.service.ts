@@ -1,23 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-// import { HttpService } from './http.service'
-
-import { HttpClient } from '@angular/common/http';
-
-import { User } from '../models/user'
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   apiUrl = "http://localhost:3000/"
-  constructor(private http: HttpClient) { }
-  
-  logIn(email: string, password: string): Observable<any> {
-    console.log('auth service login');
+  constructor(private http: HttpService) { }
+
+  login(payload){
+    return new Promise((resolve,reject)=>{
+      this.http.post('user/login',payload).then((response)=>{
+        if(response['success']){
+          localStorage.setItem('token',response['token'])
+          resolve(true)
+        }
+        else{
+          resolve(false)
+        }
+      },(err)=>{
+        reject(false)
+      })
+    })
     
-    var url = this.apiUrl+"login"
-    return this.http.post<User>(url, {email, password});
-    // return this.http.post(url,{email:email,password:password});
+  }
+
+  isLoggedIn(){
+    //check if user is logged in by checking if the token is available in localstorage. If yes, then check if the token is valid.
+    if(localStorage.getItem('token')){
+      return true
+    }
+    return false
   }
 }

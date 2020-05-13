@@ -2,8 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injectable } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgxPaginationModule } from 'ngx-pagination';
-import {MatGridListModule} from '@angular/material/grid-list';
-import { EffectsModule } from '@ngrx/effects';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FlexLayoutModule, CoreModule } from "@angular/flex-layout";
+import { MatInputModule } from "@angular/material/input";
+import { MatTableModule } from "@angular/material/table";
+import { MatPaginatorModule } from "@angular/material";
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,12 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpService } from './services/http.service'
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { AuthEffects } from './auth.effects'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';;
 
 @NgModule({
   declarations: [
@@ -38,18 +39,15 @@ import { AuthEffects } from './auth.effects'
     HttpClientModule,
     NgxPaginationModule,
     MatGridListModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers, 
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-      }
-    }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AuthEffects])
+    MatCardModule,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    CoreModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
-  providers: [HttpService],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

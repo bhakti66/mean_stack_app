@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'frontend';
 
+  constructor(private authService: AuthService){}
   logout(){
-    localStorage.removeItem('currentUser')
+    localStorage.removeItem('token')
   }
 
-  isLoggedIn(){
-    if(localStorage.getItem('currentUser')){
-      return true
-    }
-    return false
-  }
+  
 }

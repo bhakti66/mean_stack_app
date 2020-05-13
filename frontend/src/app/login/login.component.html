@@ -1,34 +1,26 @@
-<div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <table align="center">
-            <tr>
-                <td>
-                    <label for="email">Email</label>
-                </td>
-                <td>
-                    <input type="email" [formControl]="loginForm.controls['email']">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="password">Password</label>
-                </td>
-                <td>
-                    <input type="password" [formControl]="loginForm.controls['password']">
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="/register">Register</a>
-
-                </td>
-                <td>
-                    <button type="submit" *ngIf="loginForm.valid">Login</button>
-
-                </td>
-            </tr>
-        </table>
-
-    </form>
-</div>
+<form fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="login()" [formGroup]="loginForm" >
+    <mat-card class="loginCard">
+        <mat-card-title>
+            <span>Login</span>
+        </mat-card-title>
+        <mat-card-content>
+            <div name="fieldContainer" fxLayout="column" fxLayoutAlign="center">
+                <mat-form-field fxFlex>
+                    
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" placeholder="Email" [formControl]="loginForm.controls['email']">
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" placeholder="Password" [formControl]="loginForm.controls['password']">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            Not yet registered?<a href="/register">Register</a>
+            <button mat-raised-button type="submit" [disabled]="!loginForm.valid" color="accent">
+                Login
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>
